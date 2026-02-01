@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('connection.php'); // Database connection
+include('connection.php'); 
 
 $error_message = "";
 
@@ -8,19 +8,17 @@ if (isset($_POST['admin'])) {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = $_POST['password'];
 
-    // Fetch admin details
+   
     $query = "SELECT * FROM admin WHERE username='$username'";
     $result = mysqli_query($conn, $query);
     $admin = mysqli_fetch_assoc($result);
 
     if ($admin) {
-        $stored_password = $admin['password']; // Get stored password from DB
+        $stored_password = $admin['password']; 
 
-        // Debugging (Uncomment to see stored password)
-        // echo "Stored: $stored_password | Entered: $password"; exit; 
+        
 
-        if ($stored_password == $password) {  // Use == if plain text (NO hashing)
-        // if (password_verify($password, $stored_password)) { // Use ONLY if hashed
+        if ($stored_password == $password) { 
             session_regenerate_id(true);
             $_SESSION['username'] = $admin['username'];
             header("Location: admin.php");
@@ -78,3 +76,4 @@ if (isset($_POST['admin'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
